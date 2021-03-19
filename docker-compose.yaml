@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+  zipkin:
+    container_name: zipkin_development
+    image: openzipkin/zipkin:2.14
+    ports: ["35920:9411"]
+    networks:
+      - external
+
+  api.service:
+    container_name: api_dev_emil
+    build:
+      context: ./api-service
+      dockerfile: ./Dockerfile
+      args:
+        - GOLANG_VER=1.12.5
+    ports: ["5686:5686","30000:30000"]
+    environment:
+      SERVICE_REGISTER_ADDRESS: search
+    command: ["sh", "-c", "sleep 5 && /app/svc_linux_amd64"]
+    networks:
+      - apiservice
+      - external
+  db.service:
+    container_name: db_dev_emil
+    build:
+      context: ./db-service
+      dockerfile: ./Dockerfile
+      args:
+        - GOLANG_VER=1.12.5
+    depends_on:
+      - gps-db
+    ports: [ "35100:30000" ]
+    environment:
+      SERVICE_REGISTER_ADDRESS: search
+    command: [ "sh", "-c", "sleep 5 && /app/svc_linux_amd64" ]
+    networks:
+      - dbservice
+      - external
+
+  gps-db:
+    container_name: db_gps_development
+    image: postgres:10.6
+    ports: [ "35011:5432" ]
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=root
+      - POSTGRES_DB=gps
+    networks:
+      - dbservice
+
+
+
+networks:
+  apiservice:
+  dbservice:
+  external:

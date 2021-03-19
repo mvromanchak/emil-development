@@ -1,0 +1,9 @@
+{
+  "DBTYPE": "postgres",
+  "DBHOST": "gps-db",
+  "DBDATABASE": "gps",
+  "DBUSERNAME": "root",
+  "DBPASSWORD": "root",
+  "DBPORT": "5432",
+  "DBSSLMODE": "disable"
+}

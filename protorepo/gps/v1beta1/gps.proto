@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package emil.gps.v1beta1;
+
+option go_package = "gpsv1beta1";
+
+// Gps.
+message Gps {
+  string lat = 1;
+  string lon = 2;
+  string ele = 3;
+  string time = 4;
+}

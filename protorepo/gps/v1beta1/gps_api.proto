@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package emil.gps.v1beta1;
+
+option go_package = "gpsv1beta1";
+
+import "gps.proto";
+
+service GpsAPI {
+  rpc ListGps(GpsRequest) returns (GpsResponse){};
+}
+
+message GpsRequest {
+  string device_id = 1;
+  repeated Gps signals = 2;
+}
+
+message GpsResponse {
+  bool ok = 1;
+}
