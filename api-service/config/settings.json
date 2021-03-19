@@ -1,0 +1,7 @@
+{
+  "HOST" : "",
+  "PORT" : "5686",
+  "KEY": "test",
+  "ZIPKINHOST": "zipkin",
+  "ZIPKINPORT": "9411"
+}
